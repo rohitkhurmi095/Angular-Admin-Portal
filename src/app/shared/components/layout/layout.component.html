@@ -1,6 +1,24 @@
-<h4>layout works!</h4>
-
-<app-header></app-header>
-<app-breadcrumb></app-breadcrumb>
-<app-sidebar></app-sidebar>
-<app-footer></app-footer>
+<!--========-->
+<!-- Layout -->
+<!--========-->
+<div class="page-wrapper">
+    <!-- Header -->
+    <app-header></app-header>
+    <div class="page-body-wrapper">
+        <!-- Sidebar -->
+        <div class="page-sidebar">
+           <app-sidebar></app-sidebar>
+        </div>
+        <!-- Body -->
+        <div class="page-body">
+            <!-- Breadcrumb -->
+            <app-breadcrumb></app-breadcrumb>
+            <!-- Body Content: load other pages here! -->
+            <router-outlet></router-outlet>
+        </div>
+        <!-- Footer -->
+        <footer class="footer">
+            <app-footer></app-footer>
+        </footer>
+    </div>
+</div>
