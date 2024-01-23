@@ -10,6 +10,9 @@ import { SidebarMenuItem } from '../../interfaces/sidebar-menu-item';
 export class SidebarComponent {
   constructor(private _sidebarMenuItemService:SidebarMenuItemService){}
 
+  userImagePath = '/assets/images/user.png';
+  shopLogoPath = '/assets/images/logo.png';
+
   sidebarMenuItems:SidebarMenuItem[];
   ngOnInit(){
     this.sidebarMenuItems = this._sidebarMenuItemService.SIDEBAR_MENU_ITEMS;
@@ -19,7 +22,15 @@ export class SidebarComponent {
   //for buttonMenu
   performAction(actionName:string){
     console.log('buttonMenu clicked! -> actionName: ',actionName);
+    if(actionName == 'logout'){
+      this.logout();
+    }
   }
+  
+  logout(){
+    console.log('logout method!');
+  }
+
 
   //Open subMenu
   //set 'active' property on specific item to true/false based when that item is clicked!

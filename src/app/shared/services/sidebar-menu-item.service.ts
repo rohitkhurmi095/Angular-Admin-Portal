@@ -31,18 +31,18 @@ export class SidebarMenuItemService {
 
     //Masters
     {title:'Masters',icon:'clipboard',itemType:'menu',children:[
-      {title:'Brand Logo',itemType:'link',routePath:'/masters/brand-logo'},
-      {title:'Category',itemType:'link',routePath:'/masters/category'},
-      {title:'Tag',itemType:'link',routePath:'/masters/tag'},
-      {title:'Size',itemType:'link',routePath:'/masters/size'},
-      {title:'Color',itemType:'link',routePath:'/masters/color'},
-      {title:'User Type',itemType:'link',routePath:'/masters/user-type'}
+      {title:'Brand Logo',itemType:'link',routePath:'masters/brand-logo'},
+      {title:'Category',itemType:'link',routePath:'masters/category'},
+      {title:'Tag',itemType:'link',routePath:'masters/tag'},
+      {title:'Size',itemType:'link',routePath:'masters/size'},
+      {title:'Color',itemType:'link',routePath:'masters/color'},
+      {title:'User Type',itemType:'link',routePath:'masters/user-type'}
     ]},
 
     //Users
     {title:'Users',icon:'user-plus',itemType:'menu',children:[
-      {title:'Add User',itemType:'link',routePath:'/users/add-user'},
-      {title:'Users List',itemType:'link',routePath:'/users/users-list'}
+      {title:'Add User',itemType:'link',routePath:'users/add-user'},
+      {title:'Users List',itemType:'link',routePath:'users/users-list'}
     ]},
 
     //Invoices
@@ -58,5 +58,5 @@ export class SidebarMenuItemService {
 
     //Logout
     {title:'Logout',icon:'log-out',itemType:'button',actionName:'logout'},
-  ]
+  ];
 }
