@@ -1,3 +1,6 @@
+<!--========-->
+<!-- Sidebar -->
+<!--========-->
 <div class="main-header-left d-none d-lg-block">
     <div class="logo-wrapper">
         <a href="javascript:void(0)">
@@ -12,143 +15,60 @@
         <h6 class="mt-3 f-14">User Name</h6>
         <p>User Type</p>
     </div>
-
+    
+    <!------------------>
     <!-- Sidebar Menu -->
+    <!------------------>
+    <!-- Making this code more generalized to bind menuItems data from the MenuService or API calls -->
+    <!-- MenuTypes: menu | link | button -->
+    <!-- MenuLevels: 1st level (parentMenu) | 2nd level (childMenu) | 3rd level (childrenMenu)-->
+    <!--______________-->
+    <!-- parent: Menu -->
+    <!--______________-->
     <ul class="sidebar-menu">
-        <li>
-            <a class="sidebar-header" href="javascript:void(0)">
-                <app-feather-icon icon="home"></app-feather-icon> <span>Dashboard</span>
+        <li *ngFor="let menuItem of sidebarMenuItems" [class.active]="menuItem.active">
+            <!-- itemType: link -->
+            <a class="sidebar-header" *ngIf="menuItem.itemType==='link'" [routerLink]="menuItem.routePath" routerLinkActive="active">
+                <app-feather-icon [icon]="menuItem.icon"></app-feather-icon> <span>{{menuItem.title}}</span>
             </a>
-        </li>
-        <li>
-            <a class="sidebar-header" href="javascript:void(0)">
-                <app-feather-icon icon="box"></app-feather-icon> <span>Products</span>
+            <!-- itemType: menu -->
+            <a class="sidebar-header" href="javascript:void(0)" *ngIf="menuItem.itemType==='menu'" (click)="openSubMenu(menuItem)">
+                <app-feather-icon [icon]="menuItem.icon"></app-feather-icon> <span>{{menuItem.title}}</span>
                 <i class="fa fa-angle-right pull-right"></i>
             </a>
-            <ul class="sidebar-submenu">
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-circle"></i> <span>Physical</span>
+            <!-- itemType: button -->
+            <a class="sidebar-header" href="javascript:void(0)" *ngIf="menuItem.itemType==='button'" (click)="performAction(menuItem.actionName)">
+                <app-feather-icon [icon]="menuItem.icon"></app-feather-icon> <span>{{menuItem.title}}</span>
+            </a>
+
+            <!--___________________-->
+            <!-- children: subMenu -->
+            <!--___________________-->
+            <ul class="sidebar-submenu" *ngIf="menuItem.children" [class.menu-open]="menuItem.active">
+                <li *ngFor="let childItem of menuItem.children" [class.active]="childItem.active">
+                    <!-- itemType: link -->
+                    <a *ngIf="childItem.itemType==='link'" [routerLink]="childItem.routePath" routerLinkActive="active">
+                        <i class="fa fa-circle"></i> <span>{{childItem.title}}</span>
+                    </a>
+                    <!-- itemType: menu -->
+                    <a href="javascript:void(0)" *ngIf="childItem.itemType==='menu'" (click)="openSubMenu(childItem)">
+                        <i class="fa fa-circle"></i> <span>{{childItem.title}}</span>
                         <i class="fa fa-angle-right pull-right"></i>
                     </a>
-                    <ul class="sidebar-submenu">
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i class="fa fa-circle"></i> Product List
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i class="fa fa-circle"></i> Add Product
+                       
+                    <!--___________________-->
+                    <!-- children: subMenu -->
+                    <!--___________________-->
+                    <ul class="sidebar-submenu" *ngIf="childItem.children">
+                        <li *ngFor="let childrenItem of childItem.children">
+                            <!-- itemType: link -->
+                            <a *ngIf="childrenItem.itemType==='link'" [routerLink]="childrenItem.routePath" routerLinkActive="active">
+                                <i class="fa fa-circle"></i> <span>{{childrenItem.title}}</span>
                             </a>
                         </li>
                     </ul>
                 </li>
             </ul>
-        </li>
-        <li>
-            <a class="sidebar-header" href="javascript:void(0)">
-                <app-feather-icon icon="dollar-sign"></app-feather-icon> <span>Sales</span>
-                <i class="fa fa-angle-right pull-right"></i>
-            </a>
-            <ul class="sidebar-submenu">
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-circle"></i> Orders
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-circle"></i> Transactions
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <!----->
-        <li>
-            <a class="sidebar-header" href="javascript:void(0)">
-                <app-feather-icon icon="clipboard"></app-feather-icon> <span>Masters</span>
-                <i class="fa fa-angle-right pull-right"></i>
-            </a>
-            <ul class="sidebar-submenu">
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-circle"></i> Brand Logo
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-circle"></i> Category
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-circle"></i> Tag
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-circle"></i> Size
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-circle"></i> Category
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-circle"></i> User Type
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <!----->
-        <li>
-            <a class="sidebar-header" href="javascript:void(0)">
-                <app-feather-icon icon="user"></app-feather-icon> <span>Users</span>
-                <i class="fa fa-angle-right pull-right"></i>
-            </a>
-            <ul class="sidebar-submenu">
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-circle"></i> User List
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-circle"></i> Create User
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a class="sidebar-header" href="javascript:void(0)">
-                <app-feather-icon icon="settings"></app-feather-icon> <span>Settings</span>
-                <i class="fa fa-angle-right pull-right"></i>
-            </a>
-            <ul class="sidebar-submenu">
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-circle"></i> Profile
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a class="sidebar-header" href="javascript:void(0)"> 
-                <app-feather-icon icon="bar-chart"></app-feather-icon> <span>Reports</span>
-            </a>
-        </li>
-        <li>
-            <a class="sidebar-header" href="invoice.html">
-                <app-feather-icon icon="archive"></app-feather-icon> <span>Invoice</span>
-            </a>
-        </li>
-        <li>
-            <a class="sidebar-header" href="javascript:void(0)">
-                <app-feather-icon icon="log-out"></app-feather-icon> <span>Logout</span>
-            </a>
         </li>
     </ul>
 </div>
