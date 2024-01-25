@@ -5,7 +5,12 @@ import { Error404Component } from './shared/components/error404/error404.compone
 import { contentRoutes } from './shared/routes/content.routes';
 
 const routes: Routes = [
+
+  //Login Page -> load 'auth' feature module
+  {path:'auth',loadChildren:()=>import('./components/auth/auth.module').then(m=>m.AuthModule)},
+
   //Layout component with Lazy loading for feature modules (children) using dynamic imports
+  //Note: contentRoutes - children of layout component (loads on the same screen)
   {path:'',component:LayoutComponent,children:contentRoutes},
 
   //wildcard route

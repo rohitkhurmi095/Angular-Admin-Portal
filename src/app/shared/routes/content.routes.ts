@@ -5,7 +5,6 @@ export const contentRoutes:Routes = [
  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
  
   //Lazy loading for feature modules using dynamic imports
-  {path:'auth',loadChildren:()=>import('../../components/auth/auth.module').then(m=>m.AuthModule)},
   {path:'dashboard',loadChildren:()=>import('../../components/dashboard/dashboard.module').then(m=>m.DashboardModule)},
   {path:'products',loadChildren:()=>import('../../components/products/products.module').then(m=>m.ProductsModule)},
   {path:'sales',loadChildren:()=>import('../../components/sales/sales.module').then(m=>m.SalesModule)},

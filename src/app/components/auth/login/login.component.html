@@ -1,1 +1,112 @@
-<p>login works!</p>
+<div class="page-wrapper">
+    <div class="authentication-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 p-0 card-right">
+                    <div class="card tab2-card">
+                        <div class="card-body">
+                            <div class="tab-content" id="top-tabContent">
+                                <!-- using ng-bootstrap nav for tabset implementation! -->
+                                <ul ngbNav #nav="ngbNav" activeId="registerTab" class="nav nav-material nav-tabs" (navChange)="onTabChange($event)">
+                                    <li ngbNavItem="loginTab">
+                                        <a ngbNavLink> <app-feather-icon icon="unlock"></app-feather-icon> Login </a>
+                                        <ng-template ngbNavContent>
+                                            <div>
+                                                <!--____________-->
+                                                <!-- Login Form -->
+                                                <!--____________-->
+                                                <form [formGroup]="loginForm" class="form-horizontal auth-form">
+                                                    <!-- UserName -->
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="User Name" formControlName="userName" [ngClass]="{'is-invalid': (loginFormControls['userName'].touched || loginFormControls['userName'].dirty) && loginFormControls['userName'].errors}">
+                                                        <div class="invalid-feedback" *ngIf="(loginFormControls['userName'].touched || loginFormControls['userName'].dirty) && loginFormControls['userName'].errors">
+                                                            <div *ngIf="loginFormControls['userName'].hasError('required')">UserName is required.</div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Password -->
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{'is-invalid': (loginFormControls['password'].touched || loginFormControls['password'].dirty) && loginFormControls['password'].errors}">
+                                                        <div class="invalid-feedback" *ngIf="(loginFormControls['password'].touched || loginFormControls['password'].dirty) && loginFormControls['password'].errors">
+                                                            <div *ngIf="loginFormControls['password'].hasError('required')">Password is required.</div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Login button-->
+                                                    <div class="form-button">
+                                                        <button class="btn btn-primary" type="submit" (click)="login()" [disabled]="!loginForm.valid">Login</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </ng-template>
+                                    </li>
+                                    <li ngbNavItem="registerTab">
+                                        <a ngbNavLink> <app-feather-icon icon="user-plus"></app-feather-icon> Register </a>
+                                        <ng-template ngbNavContent>
+                                            <div>    
+                                                <!--_______________-->
+                                                <!-- Register Form -->
+                                                <!--_______________-->
+                                                <form [formGroup]="registerForm" class="form-horizontal auth-form">
+                                                    <!-- FirstName -->
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="First Name" formControlName="firstName" [ngClass]="{'is-invalid':(registerFormControls['firstName'].touched || registerFormControls['firstName'].dirty) && registerFormControls['firstName'].errors}">
+                                                        <div class="invalid-feedback" *ngIf="(registerFormControls['firstName'].touched ||registerFormControls['firstName'].dirty) && registerFormControls['firstName'].errors">
+                                                            <div *ngIf="registerFormControls['firstName'].hasError('required')">First Name is required.</div>
+                                                            <div *ngIf="registerFormControls['firstName'].hasError('minlength')">First Name must be minimum of 3 characters</div>
+                                                            <div *ngIf="registerFormControls['firstName'].hasError('maxlength')">First Name cannot exceed 15 characters</div>
+                                                            <!-- <div>Please enter a valid alphanumeric value!</div>
+                                                            <div>Only whitespace characters not allowed!</div> -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- LastName -->
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName" [ngClass]="{'is-invalid':(registerFormControls['lastName'].touched || registerFormControls['lastName'].dirty) && registerFormControls['lastName'].errors}">
+                                                        <div class="invalid-feedback" *ngIf="(registerFormControls['lastName'].touched ||registerFormControls['lastName'].dirty) && registerFormControls['lastName'].errors">
+                                                            <div *ngIf="registerFormControls['lastName'].hasError('required')">Last Name is required.</div>
+                                                            <div *ngIf="registerFormControls['lastName'].hasError('minlength')">Last Name must be minimum of 3 characters</div>
+                                                            <div *ngIf="registerFormControls['lastName'].hasError('maxlength')">Last Name cannot exceed 15 characters</div>
+                                                            <!-- <div>Please enter a valid alphanumeric value!</div>
+                                                            <div>Only whitespace characters not allowed!</div> -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Email -->
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{'is-invalid':(registerFormControls['email'].touched || registerFormControls['email'].dirty) && registerFormControls['email'].errors}">
+                                                        <div class="invalid-feedback" *ngIf="(registerFormControls['email'].touched ||registerFormControls['email'].dirty) && registerFormControls['email'].errors">
+                                                            <div *ngIf="registerFormControls['email'].hasError('required')">Email is required.</div>
+                                                            <!-- <div>Please enter a valid email!</div> -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Password  -->
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{'is-invalid':(registerFormControls['password'].touched || registerFormControls['password'].dirty) && registerFormControls['password'].errors}">
+                                                        <div class="invalid-feedback" *ngIf="(registerFormControls['password'].touched ||registerFormControls['password'].dirty) && registerFormControls['password'].errors">
+                                                            <div *ngIf="registerFormControls['password'].hasError('required')">Password is required.</div>
+                                                            <div *ngIf="registerFormControls['password'].hasError('pattern')">Password must contain at least 1 special character, 1 uppercase letter, 1 lowercase letter, and 1 number, with a minimum length of 8 characters.</div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Confirm Password -->
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword" [ngClass]="{'is-invalid':(registerFormControls['confirmPassword'].touched || registerFormControls['confirmPassword'].dirty) && registerFormControls['confirmPassword'].errors}">
+                                                        <div class="invalid-feedback" *ngIf="(registerFormControls['confirmPassword'].touched ||registerFormControls['confirmPassword'].dirty) && registerFormControls['confirmPassword'].errors">
+                                                            <div *ngIf="registerFormControls['confirmPassword'].hasError('required')">Confirm Password is required.</div>
+                                                            <!-- <div>Confirm Password must be same as the Password!</div> -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Register button-->
+                                                    <div class="form-button">
+                                                        <button class="btn btn-primary" type="submit" (click)="register()" [disabled]="!registerForm.valid">Register</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </ng-template>
+                                    </li>
+                                </ul>
+                                <div [ngbNavOutlet]="nav" class="mt-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

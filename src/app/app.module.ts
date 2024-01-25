@@ -16,9 +16,8 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    SharedModule,
+    SharedModule, //Eagar Loading
     ToastrModule.forRoot(), //for toastr notifications
-    NgbModule //Eager Loading
   ],
   providers: [],
   bootstrap: [AppComponent]
