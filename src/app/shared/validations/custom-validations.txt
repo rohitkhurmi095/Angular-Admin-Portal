@@ -1,0 +1,79 @@
+=====================================
+Custom Validations in Reactive Forms
+=====================================
+-> Implement and export custom validations from a class
+___________________________
+1. Single Field Validator
+___________________________
+- for singleFieldValidator: use class 
+- applied on formControlInstance
+export class singleFieldValidator{
+    static ValidateSingleField(fc:FormControl){
+        if(fc.value!=null && fc.value!=undefined && fc.value!=''){
+            const regx = /REGULAR EXPRESSION/;
+            if(regx.test(fc.value)){
+                //validation passed!
+                return null;
+            }else{
+                //validation failed!
+                return {ValidateSingleField:true};
+            }
+        }else{
+            //validation not required!
+            return null;
+        }
+    }
+}
+
+__________________________
+2. Multi Field Validator
+___________________________
+- for multiFieldValidator: use function 
+- applied on formGroup instance
+- input = 2 formControlName
+- returns formGroupInstance and setErrors() on formControlInstance2
+            |_ use formGroupInstance + formControlName -> to get formControlInstance
+            |_ use AbstractControlOptions interface to apply validation on formGroup as formOptions
+
+export function multiFieldValidator(fcName1:string, fcName2:string){
+    return (fg:FormGroup)        
+        //get formControlInstance from formGroupInstance
+        const fc1 = fg.get(fcName1);
+        const fc2 = fg.get(fcName2);
+        
+        //check this validation only if all other validations gives no error on formControlInstance2
+        if(fc2.errors && !fc2.errors['mustMatch'])}{
+            return;
+        }
+
+        //if value matches -> do nothing | else -> setError on formControlInstance2
+        if(fc1.value == fc2.value){
+            fc2.setErrors(null);
+        }else{
+            //show validation -> set error
+            fc2.setErrors({mustMatch:true});
+        }
+    }
+}
+
+//Depricated Syntax:
+//------------------
+this.registerForm = this._fb.group({
+    password:['',[Validators.required]],
+    confirmPassword:['',[Validators.required]]
+},{
+    validators: MustMatchFieldValidator('password','confirmPassword')
+}) 
+
+//New Syntax: use AbstractControlOptions interface
+//-----------
+import { AbstractControlOptions} from '@angular/forms';
+registerFormOptions: AbstractControlOptions;
+this.registerFormOptions = {
+    validators: MustMatchFieldValidator('password','confirmPassword')
+}
+this.registerForm = this._fb.group({
+        password:['',[Validators.required]],
+        confirmPassword:['',[Validators.required]]
+    },this.registerFormOptions)
+}

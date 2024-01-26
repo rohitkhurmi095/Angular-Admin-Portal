@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SidebarMenuItemService } from '../../services/sidebar-menu-item.service';
 import { SidebarMenuItem } from '../../interfaces/sidebar-menu-item';
+import { Global } from '../../utility/global';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,13 +11,18 @@ import { SidebarMenuItem } from '../../interfaces/sidebar-menu-item';
 export class SidebarComponent {
   constructor(private _sidebarMenuItemService:SidebarMenuItemService){}
 
-  userImagePath = '/assets/images/user.png';
   shopLogoPath = '/assets/images/logo.png';
-
+  
+  userDetails:any;
+  userImagePath:string;
   sidebarMenuItems:SidebarMenuItem[];
   ngOnInit(){
     this.sidebarMenuItems = this._sidebarMenuItemService.SIDEBAR_MENU_ITEMS;
     console.log('sidebarMenuItems: ',this.sidebarMenuItems);
+
+     //GET userDetails from localStorage
+     this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
+     this.userImagePath = this.userDetails.imagePath!=""? Global.BASE_USER_IMAGES_URL+this.userDetails.imagePath : '/assets/images/user.png';
   }
 
   //for buttonMenu
@@ -26,11 +32,10 @@ export class SidebarComponent {
       this.logout();
     }
   }
-  
+
   logout(){
     console.log('logout method!');
   }
-
 
   //Open subMenu
   //set 'active' property on specific item to true/false based when that item is clicked!

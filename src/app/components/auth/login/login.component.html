@@ -53,8 +53,8 @@
                                                             <div *ngIf="registerFormControls['firstName'].hasError('required')">First Name is required.</div>
                                                             <div *ngIf="registerFormControls['firstName'].hasError('minlength')">First Name must be minimum of 3 characters</div>
                                                             <div *ngIf="registerFormControls['firstName'].hasError('maxlength')">First Name cannot exceed 15 characters</div>
-                                                            <!-- <div>Please enter a valid alphanumeric value!</div>
-                                                            <div>Only whitespace characters not allowed!</div> -->
+                                                            <div *ngIf="registerFormControls['firstName'].hasError('ValidAlphaNumericField')">Please enter a valid alphanumeric value!</div>
+                                                            <div *ngIf="registerFormControls['firstName'].hasError('ValidNoWhiteSpaceField')">Only whitespace characters not allowed!</div>
                                                         </div>
                                                     </div>
                                                     <!-- LastName -->
@@ -64,8 +64,8 @@
                                                             <div *ngIf="registerFormControls['lastName'].hasError('required')">Last Name is required.</div>
                                                             <div *ngIf="registerFormControls['lastName'].hasError('minlength')">Last Name must be minimum of 3 characters</div>
                                                             <div *ngIf="registerFormControls['lastName'].hasError('maxlength')">Last Name cannot exceed 15 characters</div>
-                                                            <!-- <div>Please enter a valid alphanumeric value!</div>
-                                                            <div>Only whitespace characters not allowed!</div> -->
+                                                            <div *ngIf="registerFormControls['lastName'].hasError('ValidAlphaNumericField')">Please enter a valid alphanumeric value!</div>
+                                                            <div *ngIf="registerFormControls['lastName'].hasError('ValidNoWhiteSpaceField')">Only whitespace characters not allowed!</div>
                                                         </div>
                                                     </div>
                                                     <!-- Email -->
@@ -73,7 +73,7 @@
                                                         <input type="text" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{'is-invalid':(registerFormControls['email'].touched || registerFormControls['email'].dirty) && registerFormControls['email'].errors}">
                                                         <div class="invalid-feedback" *ngIf="(registerFormControls['email'].touched ||registerFormControls['email'].dirty) && registerFormControls['email'].errors">
                                                             <div *ngIf="registerFormControls['email'].hasError('required')">Email is required.</div>
-                                                            <!-- <div>Please enter a valid email!</div> -->
+                                                            <div *ngIf="registerFormControls['email'].hasError('ValidEmailField')">Please enter a valid email!</div>
                                                         </div>
                                                     </div>
                                                     <!-- Password  -->
@@ -89,7 +89,7 @@
                                                         <input type="password" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword" [ngClass]="{'is-invalid':(registerFormControls['confirmPassword'].touched || registerFormControls['confirmPassword'].dirty) && registerFormControls['confirmPassword'].errors}">
                                                         <div class="invalid-feedback" *ngIf="(registerFormControls['confirmPassword'].touched ||registerFormControls['confirmPassword'].dirty) && registerFormControls['confirmPassword'].errors">
                                                             <div *ngIf="registerFormControls['confirmPassword'].hasError('required')">Confirm Password is required.</div>
-                                                            <!-- <div>Confirm Password must be same as the Password!</div> -->
+                                                            <div *ngIf="registerFormControls['confirmPassword'].hasError('MustMatch')">Confirm Password must be same as the Password!</div>
                                                         </div>
                                                     </div>
                                                     <!-- Register button-->

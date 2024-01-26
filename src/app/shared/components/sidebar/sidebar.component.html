@@ -12,8 +12,8 @@
     <div class="sidebar-user text-center">
         <div><img class="img-60 rounded-circle" [src]="userImagePath" alt="sidebar-user">
         </div>
-        <h6 class="mt-3 f-14">User Name</h6>
-        <p>User Type</p>
+        <h6 class="mt-3 f-14">{{userDetails.firstName +' '+userDetails.lastName}}</h6>
+        <p>{{userDetails.userType}}</p>
     </div>
     
     <!------------------>
