@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CollapseSidebarService } from '../../services/collapse-sidebar.service';
 import { Global } from '../../utility/global';
+import { AuthService } from 'src/app/components/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,7 @@ import { Global } from '../../utility/global';
 })
 export class HeaderComponent implements OnInit{
 
-  constructor(public _collapseSidebarService:CollapseSidebarService){}
+  constructor(public _collapseSidebarService:CollapseSidebarService, private _authService:AuthService){}
   
   userDetails:any;
   userImagePath:string;
@@ -20,7 +21,7 @@ export class HeaderComponent implements OnInit{
   }
 
   logout(){
-    console.log('logout method!');
+    this._authService.logout();
   }
 
   collapseSidebar(){

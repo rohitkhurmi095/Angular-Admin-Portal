@@ -6,7 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { ToastrModule } from 'ngx-toastr';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { RequestInterceptor } from './interceptors/request.interceptor';
+import { ResponseInterceptor } from './interceptors/response.interceptor';
 
 
 @NgModule({
@@ -21,7 +23,11 @@ import {HttpClientModule} from '@angular/common/http';
     ToastrModule.forRoot(), //for toastr notifications
     HttpClientModule //for http API Calls
   ],
-  providers: [],
+  providers: [
+    //Interceptors -> called in sequence
+    {provide:HTTP_INTERCEPTORS,useClass:RequestInterceptor, multi:true},
+    {provide:HTTP_INTERCEPTORS,useClass:ResponseInterceptor,multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,7 +5,7 @@ import { AbstractControlOptions } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { Global } from 'src/app/shared/utility/global';
-import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   
-  constructor(private _fb:FormBuilder,private _httpService:HttpService,private _toastr:ToastrService,private _router:Router){}
+  constructor(private _fb:FormBuilder,private _httpService:HttpService,private _toastr:ToastrService,private _authService:AuthService){}
 
   //Get Nav TabSet instance from template using @ViewChild
   @ViewChild('nav') elNav:any;
@@ -86,15 +86,12 @@ export class LoginComponent implements OnInit {
     //Call login API
     this._httpService.post(Global.BASE_API_URL+'UserMaster/Login/',this.loginForm.value).subscribe(res =>{
       if(res.isSuccess){
-        console.log('Login: ',res.data);
+        //console.log('Login: ',res.data);
         this._toastr.success("Login Successful!","Login");
         this.resetLoginForm();
 
-        //Set UserDetails in localStorage!
-        localStorage.setItem("userDetails",JSON.stringify(res.data))
-
-        //Navigate to Dashboard
-        this._router.navigate(['dashboard']);
+        //call loginService!
+        this._authService.login(res.data);
       }else{
         this._toastr.error(res.errors[0],"Login");
       }
@@ -113,7 +110,7 @@ export class LoginComponent implements OnInit {
     //Call Register API
     this._httpService.post(Global.BASE_API_URL+'UserMaster/Save/',this.registerForm.value).subscribe(res=>{
       if(res.isSuccess){   
-        console.log('Register: ',res.data);
+        //console.log('Register: ',res.data);
         this._toastr.success("Registration Successful!","Register");
         this.resetRegisterForm();
 

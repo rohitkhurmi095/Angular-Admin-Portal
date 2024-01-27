@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SidebarMenuItemService } from '../../services/sidebar-menu-item.service';
 import { SidebarMenuItem } from '../../interfaces/sidebar-menu-item';
 import { Global } from '../../utility/global';
+import { AuthService } from 'src/app/components/auth/auth.service';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent {
-  constructor(private _sidebarMenuItemService:SidebarMenuItemService){}
+export class SidebarComponent implements OnInit{
+  constructor(private _sidebarMenuItemService:SidebarMenuItemService, private _authService:AuthService){}
 
   shopLogoPath = '/assets/images/logo.png';
   
@@ -27,14 +28,14 @@ export class SidebarComponent {
 
   //for buttonMenu
   performAction(actionName:string){
-    console.log('buttonMenu clicked! -> actionName: ',actionName);
+    //console.log('buttonMenu clicked! -> actionName: ',actionName);
     if(actionName == 'logout'){
       this.logout();
     }
   }
 
   logout(){
-    console.log('logout method!');
+    this._authService.logout();
   }
 
   //Open subMenu

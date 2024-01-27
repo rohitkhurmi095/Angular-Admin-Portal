@@ -1,0 +1,69 @@
+-------------
+Http Client
+-------------
+- GET | PUT | POST | DELETE
+   	     request
+App <-> HttpClient <-> API(Server)
+         response
+
+------------------
+Http Interceptors
+------------------
+- middleware b/w HttpRequest and HttpResponse  
+- every HttpRequest goes through the Interceptor 
+   - we can't have different interceptors for different requests
+- Note: If interceptor is not used, this any logic b/w request response needs to be added to individual API's
+                                              |_ Eg: JWT Token - add to API Header
+- called in sequence as added in the appModule providers:[] (one after the other)
+
+   	     request    Interceptor
+App <-> HttpClient <----------> <-> API(Server)
+         response   middleware
+                        |_ modify req/res here!
+- Common use:
+   - Sending JWT token with every request: request interceptor
+   - Receiving response and performing error handling: response interceptor
+
+Eg: Sahosoft Web API
+ 	|_ Login API called -> gives JWT Token (for loggedIn user)
+                          	 |_ used to access other API's
+
+-> Create interceptor:
+ng g interceptor request --skip-tests
+
+Note:
+-> every interceptor implementes HttpInterceptor interface
+-> must implement interceptor method of HttpInterceptor interface
+-> request can't be modified directly -> clone request to modify it 
+Syntax:
+export class interceptorName implements HttpInterceptor{
+    interceptor(request:HttpRequest<unknown>, next:HttpHandler):Observable<HttpEvent<unknown>>{
+                  |_ mutable (can't be modified) -> clone and modify this request
+       //call to next middleware
+       return next.handle(request);
+   }
+}
+
+Note: 
+1. request defined as parameter is mutable, we need to clone request to make any modifications
+requestModified = request.clone({
+    setHeaders:{'headerName':'header value'}
+});
+
+2. check if request contains header named 'abc'
+request.header.has('abc');
+
+3. delete header name 'abc'
+requestModified = request.clone({
+    headers: request.header.delete('abc');
+});
+
+Calling Interceptors:
+@NgModule({
+  providers: [
+    //called in sequence!
+    //Add the interceptors to be called here (In Sequence) | multi -> multiple interceptors are there
+    {provide:HTTP_INTERCEPTORS, useClass:InterceptorName1, multi:true},
+    {provide:HTTP_INTERCEPTORS, useClass:InterceptorName2, multi:true}
+  ]
+})

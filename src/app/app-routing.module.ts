@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './shared/components/layout/layout.component';
 import { Error404Component } from './shared/components/error404/error404.component';
 import { contentRoutes } from './shared/routes/content.routes';
+import { authGuard } from './components/auth/auth.guard';
 
 const routes: Routes = [
 
@@ -11,7 +12,8 @@ const routes: Routes = [
 
   //Layout component with Lazy loading for feature modules (children) using dynamic imports
   //Note: contentRoutes - children of layout component (loads on the same screen)
-  {path:'',component:LayoutComponent,children:contentRoutes},
+  //Apply canActivateAuthGuard!
+  {path:'',component:LayoutComponent,children:contentRoutes,canActivate:[authGuard]},
 
   //wildcard route
   {path:'**',component:Error404Component,title:'404 Not Found'}
