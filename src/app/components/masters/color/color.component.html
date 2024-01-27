@@ -1,1 +1,90 @@
-<p>color works!</p>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h5>{{componentName}}</h5>
+        </div>
+        <div class="card-body tab2-card">
+            <!-- Ng bootstrap Nav TabSet -->
+            <ul ngbNav #nav="ngbNav" activeId="viewTab" class="nav nav-material nav-tabs" (click)="onTabChange($event)">
+                <li ngbNavItem="addTab">
+                    <a ngbNavLink>Add</a>
+                    <ng-template ngbNavContent>
+                        <!-- _____________-->
+                        <!-- Add/Edit Tab -->
+                        <!--_______________-->
+                        <!-- Note: same form | button is used for Add|Update-->
+                        <form [formGroup]="fData" class="form-horizontal">
+                            <!-- Name -->
+                            <div class="form-group row">
+                               <label class="col-sm-3 col-form-label">*Name</label>
+                               <div class="col-sm-7">
+                                    <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid':(formControls['name'].touched || formControls['name'].dirty)  && formControls['name'].errors}">
+                                    <div class="invalid-feedback" *ngIf="(formControls['name'].touched || formControls['name'].dirty)  && formControls['name'].errors">
+                                        <div *ngIf="formControls['name'].hasError('required')">Name is required.</div>
+                                        <div *ngIf="formControls['name'].hasError('minlength')">Name must be minimum of 3 characters</div>
+                                        <div *ngIf="formControls['name'].hasError('maxlength')">Name cannot exceed 10 characters</div>
+                                        <div *ngIf="formControls['name'].hasError('ValidCharField')">Name must be contains char and space only!</div>
+                                        <div *ngIf="formControls['name'].hasError('ValidNoWhiteSpaceField')">Only whitespace characters not allowed!</div>
+                                    </div>
+                               </div>
+                            </div>
+                            <br/>
+                            <!-- Code -->
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">*Code</label>
+                                <div class="col-sm-7">
+                                     <input type="text" class="form-control" formControlName="code" [ngClass]="{'is-invalid':(formControls['code'].touched || formControls['code'].dirty)  && formControls['code'].errors}">
+                                     <div class="invalid-feedback" *ngIf="(formControls['code'].touched || formControls['code'].dirty) && formControls['code'].errors">
+                                         <div *ngIf="formControls['code'].hasError('required')">Code is required.</div>
+                                         <div *ngIf="formControls['code'].hasError('minlength')">Code must be minimum of 3 characters</div>
+                                         <div *ngIf="formControls['code'].hasError('maxlength')">Code cannot exceed 10 characters</div>
+                                         <div *ngIf="formControls['code'].hasError('ValidNoWhiteSpaceField')">Only whitespace characters not allowed!</div>
+                                     </div>
+                                </div>
+                             </div>
+                            <!-- Buttons -->
+                            <div class="fa-pull-right"  style="margin-top: 20px;">
+                                <button class="btn btn-primary" (click)="submit()"  [disabled]="!fData.valid">{{buttonText}}</button>
+                                <button class="btn btn-danger mx-2" (click)="cancel()">Cancel</button>
+                            </div>
+                        </form>        
+                    </ng-template>
+                </li>
+                <li ngbNavItem="viewTab">
+                    <a ngbNavLink>View</a>
+                    <ng-template ngbNavContent>
+                        <!--__________-->
+                        <!-- View Tab -->
+                        <!--__________-->
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="custom-datatable">
+                                               <!-- Ngx Datatable -->
+                                               <ngx-datatable class="bootstrap" [rows]="objRows" [headerHeight]="50" [footerHeight]="50" [columnMode]="'force'" [rowHeight]="'auto'" [limit]="5">
+                                                    <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
+                                                    <ngx-datatable-column name="Created Date" prop="createdOn"></ngx-datatable-column>
+                                                    <ngx-datatable-column name="Code" prop="code"></ngx-datatable-column>
+                                                    <ngx-datatable-column name="Actions">
+                                                        <ng-template ngx-datatable-cell-template let-row="row">
+                                                            <button class="fa fa-edit" style="color:blue;" (click)="edit(row.id)"></button>
+                                                            <button class="fa fa-trash mx-2" style="color:red;" (click)="delete(row.id)"></button>
+                                                        </ng-template>
+                                                    </ngx-datatable-column>
+                                               </ngx-datatable>
+                                               <!-------------------->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </li>
+            </ul>
+            <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </div>
+    </div>
+</div>

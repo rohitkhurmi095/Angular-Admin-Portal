@@ -18,7 +18,7 @@ export class SizeComponent {
 
   @ViewChild('nav') elNav:any;     //nav templateRef variable
   componentName = 'Size Master';
-  buttonText = "Add/Update";      //buttonText
+  buttonText = "";                //buttonText
   dbOperations:DbOperations;     //dbOperation
   fData:FormGroup;              //FormGroup Instance
   objRows:any[];               //for allData
