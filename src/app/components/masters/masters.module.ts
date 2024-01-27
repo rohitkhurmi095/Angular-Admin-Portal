@@ -8,7 +8,9 @@ import { ColorComponent } from './color/color.component';
 import { CategoryComponent } from './category/category.component';
 import { BrandLogoComponent } from './brand-logo/brand-logo.component';
 import { UserTypeComponent } from './user-type/user-type.component';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,10 @@ import { UserTypeComponent } from './user-type/user-type.component';
   ],
   imports: [
     CommonModule,
-    MastersRoutingModule
+    MastersRoutingModule,
+    NgbModule, //for tabset
+    ReactiveFormsModule, //for forms
+    NgxDatatableModule
   ]
 })
 export class MastersModule { }
