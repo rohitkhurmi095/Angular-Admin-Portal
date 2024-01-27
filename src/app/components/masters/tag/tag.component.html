@@ -5,7 +5,7 @@
         </div>
         <div class="card-body tab2-card">
             <!-- Ng bootstrap Nav TabSet -->
-            <ul ngbNav #nav="ngbNav" activeId="addTab" class="nav nav-material nav-tabs" (click)="onTabChange($event)">
+            <ul ngbNav #nav="ngbNav" activeId="viewTab" class="nav nav-material nav-tabs" (click)="onTabChange($event)">
                 <li ngbNavItem="addTab">
                     <a ngbNavLink>Add</a>
                     <ng-template ngbNavContent>
@@ -22,7 +22,7 @@
                                     <div class="invalid-feedback" *ngIf="(formControls['name'].touched || formControls['name'].dirty)  && formControls['name'].errors">
                                         <div *ngIf="formControls['name'].hasError('required')">Name is required.</div>
                                         <div *ngIf="formControls['name'].hasError('minlength')">Name must be minimum of 2 characters</div>
-                                        <div *ngIf="formControls['name'].hasError('maxlength')">Name cannot exceed 6 characters</div>
+                                        <div *ngIf="formControls['name'].hasError('maxlength')">Name cannot exceed 8 characters</div>
                                         <div *ngIf="formControls['name'].hasError('ValidCharField')">Name must be contains char and space only!</div>
                                         <div *ngIf="formControls['name'].hasError('ValidNoWhiteSpaceField')">Only whitespace characters not allowed!</div>
                                     </div>
@@ -49,7 +49,7 @@
                                         <div class="card-body">
                                             <div class="custom-datatable">
                                                <!-- Ngx Datatable -->
-                                               <ngx-datatable class="bootstrap" [rows]="objRows" [headerHeight]="50" [footerHeight]="50" [columnMode]="'force'" [rowHeight]="'auto'" [limit]="5" [sorts]="[{prop:'createdOn',dir:'desc'}]">
+                                               <ngx-datatable class="bootstrap" [rows]="objRows" [headerHeight]="50" [footerHeight]="50" [columnMode]="'force'" [rowHeight]="'auto'" [limit]="5">
                                                     <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
                                                     <ngx-datatable-column name="Created Date" prop="createdOn"></ngx-datatable-column>
                                                     <ngx-datatable-column name="Actions">

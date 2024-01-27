@@ -36,7 +36,7 @@ export class TagComponent implements OnInit,OnDestroy {
 
     this.fData = this._fb.group({
       id:[0],
-      name:['',Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(6),CharFieldValidator.ValidCharField,NoWhiteSpaceFieldValidator.ValidNoWhiteSpaceField])]
+      name:['',Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(8),CharFieldValidator.ValidCharField,NoWhiteSpaceFieldValidator.ValidNoWhiteSpaceField])]
     })
   }
 

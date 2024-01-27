@@ -33,7 +33,7 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "allowedCommonJsDependencies": ["feather-icons"]
+            "allowedCommonJsDependencies": ["feather-icons","sweetalert2"]
           },
           "configurations": {
             "production": {
