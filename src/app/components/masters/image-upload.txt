@@ -1,0 +1,72 @@
+Image Upload and Preview
+=========================
+---------
+Template:
+---------
+ <div>
+    <input type="file" class="form-control" #image accept="image/*" (change)="uploadImage($event)">
+    <br/>
+    <img style="border: 1px solid gainsboro;" [src]="uploadImagePreview" height="100" width="100" alt="upload-image">
+</div>
+
+----------
+Component:
+----------
+//UploadPreview Image
+uploadImagePreview:string = '/assets/images/noimage.png';
+//uploaded file
+uploadedImage:File;
+
+//access image templateRef varaible using @viewChild
+@ViewChild('image') elImage:ElementRef;
+
+uploadImage(event:any){
+    let files = event.target.files;
+    let file = files[0];  
+    let fileType = file.type;
+    const imageTypeRegx = /image\/*/;
+
+    //1. check fileLength
+    if(files.length===0){
+        return;
+    }
+
+    //2 check fileType | if not valid image -> show error message! 
+    if(!fileType.match(imageTypeRegx)){
+        console.log('Please upload a valid image file.' );
+        //clear file input
+         this.elImage.nativeElement.value = "";
+        //reset preview image
+        this.uploadImagePreview = '/assets/images/noimage.png';
+        return;
+    }
+     
+    //set file
+    this.uploadedImage = file;
+
+    //read FileDate and assign this to uploadImagePreview using fileReaderAPI in javascript
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = ()=>{
+        this.uploadImagePreview = reader.result.toString();
+    }
+}
+
+//--------------------------------------------------------
+//calling API -> Saving data with Image using formData();
+//-------------------------------------------------------
+- no need to convert obj -> string 
+- no need to set {'content-type':'application/json'} headers
+
+const formData = new FormData();
+formData.append("id",this.fdata.value.id);
+formData.append("name",this.fdata.value.name);
+formData.append("image",this.uploadedImage,this.uploadedImage.name);
+
+this._http.post(apiUrl,formData).suscribe(res=>{
+    if(res.isSuccess){
+        console.log(res.data);
+    }else{
+        console.log(res.errors[0]);
+    }
+});

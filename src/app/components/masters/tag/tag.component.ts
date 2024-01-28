@@ -18,7 +18,7 @@ export class TagComponent implements OnInit,OnDestroy {
 
   @ViewChild('nav') elNav:any;    //nav templateRef variable
   componentName = 'Tag Master';
-  buttonText = "Add/Update";      //buttonText
+  buttonText = "";                //buttonText
   dbOperations:DbOperations;     //dbOperation
   fData:FormGroup;              //FormGroup Instance
   objRows:any[];               //for allData

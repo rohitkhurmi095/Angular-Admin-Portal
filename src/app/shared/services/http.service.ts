@@ -18,12 +18,24 @@ export class HttpService {
 
   //POST
   //-----
+  //for saving data without Image
   public post(url:string,object:any):Observable<any>{
     //convert object -> lightweight format(string) before posting data to API
     const body = JSON.stringify(object);
     return this._http.post(url,body,{
       headers: new HttpHeaders().set('Content-Type','application/json')
     });
+  }
+
+  //POST Image 
+  //-----------
+  //used for saving data with Image using formData object
+  //do not convert object -> string (bytes loss) | do not set headers
+  //formData = new FormData();
+  //formData.append("name",'abc');
+  //formData.append("image",uploadedFile,uploadedFileName);
+  public postImage(url:string, object:any):Observable<any>{
+    return this._http.post(url,object);
   }
 
   //PUT
