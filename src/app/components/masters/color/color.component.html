@@ -20,11 +20,12 @@
                                <div class="col-sm-7">
                                     <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid':(formControls['name'].touched || formControls['name'].dirty)  && formControls['name'].errors}">
                                     <div class="invalid-feedback" *ngIf="(formControls['name'].touched || formControls['name'].dirty)  && formControls['name'].errors">
-                                        <div *ngIf="formControls['name'].hasError('required')">Name is required.</div>
-                                        <div *ngIf="formControls['name'].hasError('minlength')">Name must be minimum of 3 characters</div>
+                                        <div *ngIf="formControls['name'].hasError('required')">{{validationMessages.name.required}}</div>
+                                        <!-- <div *ngIf="formControls['name'].hasError('minlength')">Name must be minimum of 3 characters</div>
                                         <div *ngIf="formControls['name'].hasError('maxlength')">Name cannot exceed 10 characters</div>
                                         <div *ngIf="formControls['name'].hasError('ValidCharField')">Name must be contains char and space only!</div>
-                                        <div *ngIf="formControls['name'].hasError('ValidNoWhiteSpaceField')">Only whitespace characters not allowed!</div>
+                                        <div *ngIf="formControls['name'].hasError('ValidNoWhiteSpaceField')">Only whitespace characters not allowed!</div> -->
+                                        <div [innerHTML]="formErrors['name']"></div>
                                     </div>
                                </div>
                             </div>
@@ -35,10 +36,11 @@
                                 <div class="col-sm-7">
                                      <input type="text" class="form-control" formControlName="code" [ngClass]="{'is-invalid':(formControls['code'].touched || formControls['code'].dirty)  && formControls['code'].errors}">
                                      <div class="invalid-feedback" *ngIf="(formControls['code'].touched || formControls['code'].dirty) && formControls['code'].errors">
-                                         <div *ngIf="formControls['code'].hasError('required')">Code is required.</div>
-                                         <div *ngIf="formControls['code'].hasError('minlength')">Code must be minimum of 3 characters</div>
+                                         <div *ngIf="formControls['code'].hasError('required')">{{validationMessages.code.required}}</div>
+                                         <!-- <div *ngIf="formControls['code'].hasError('minlength')">Code must be minimum of 3 characters</div>
                                          <div *ngIf="formControls['code'].hasError('maxlength')">Code cannot exceed 10 characters</div>
-                                         <div *ngIf="formControls['code'].hasError('ValidNoWhiteSpaceField')">Only whitespace characters not allowed!</div>
+                                         <div *ngIf="formControls['code'].hasError('ValidNoWhiteSpaceField')">Only whitespace characters not allowed!</div> -->
+                                         <div [innerHTML]="formErrors['code']"></div>
                                      </div>
                                 </div>
                              </div>

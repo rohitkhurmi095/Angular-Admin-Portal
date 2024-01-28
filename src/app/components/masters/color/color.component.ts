@@ -24,6 +24,27 @@ export class ColorComponent {
   objRows:any[];               //for allData
   objRow:any;                 //for singleData
 
+  //Form Validations
+  formErrors = {
+    name:'',
+    code:''
+  }
+  validationMessages = {
+    name: {
+      required:'Name is required.',
+      minlength:'Name must be minimum of 3 characters',
+      maxlength:'Name cannot exceed 10 characters',
+      ValidCharField:'Name must be contains char and space only!',
+      ValidNoWhiteSpaceField:'Only whitespace characters not allowed!'
+    },
+    code: {
+      required:'Code is required.',
+      minlength:'Code must be minimum of 3 characters',
+      maxlength:'Code cannot exceed 10 characters',
+      ValidNoWhiteSpaceField:'Only whitespace characters not allowed!'
+    }
+  }
+
   ngOnInit(){
     this.setFormData();
     this.getAllRecords();
@@ -39,6 +60,38 @@ export class ColorComponent {
       name:['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(10),CharFieldValidator.ValidCharField,NoWhiteSpaceFieldValidator.ValidNoWhiteSpaceField])],
       code:['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(10),NoWhiteSpaceFieldValidator.ValidNoWhiteSpaceField])]
     })
+
+    //When formGroup valueChanges! -> check and apply validations!
+    this.fData.valueChanges.subscribe(()=>{
+      this.onValueChanges();
+    })
+  }
+
+  onValueChanges(){
+    //loop through formErrors field's (formControlName's)
+    for(const field of Object.keys(this.formErrors)){
+      //check if form is not undefined -> valid form
+      if(!this.fData){
+        return;
+      }
+        
+      //set message to ''
+      this.formErrors[field]='';
+      //get formControl instance from formControlName
+      const formControl = this.fData.get(field);
+        
+      //check conditions for validations 
+      if(formControl && ((formControl.touched || formControl.dirty) && formControl.errors)){
+        //loop through all errors applied on formControl
+        for(let key of Object.keys(formControl.errors)){
+          //skip check for required validation as this is not detected at 1st time in valueChanges
+          if(key !== 'required'){
+              //append validation message
+              this.formErrors[field] = this.formErrors[field] + this.validationMessages[field][key] + '<br/>';
+          }
+        }
+      }
+    }
   }
 
   get formControls(){

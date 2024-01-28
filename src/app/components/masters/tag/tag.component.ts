@@ -24,6 +24,20 @@ export class TagComponent implements OnInit,OnDestroy {
   objRows:any[];               //for allData
   objRow:any;                 //for singleData
 
+  //Form Validations
+  formErrors = {
+    name:''
+  }
+  validationMessages = {
+    name: {
+      required:'Name is required.',
+      minlength:'Name must be minimum of 2 characters',
+      maxlength:'Name cannot exceed 8 characters',
+      ValidCharField:'Name must be contains char and space only!',
+      ValidNoWhiteSpaceField:'Only whitespace characters not allowed!'
+    }
+  }
+
   ngOnInit(){
     this.setFormData();
     this.getAllRecords();
@@ -38,6 +52,38 @@ export class TagComponent implements OnInit,OnDestroy {
       id:[0],
       name:['',Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(8),CharFieldValidator.ValidCharField,NoWhiteSpaceFieldValidator.ValidNoWhiteSpaceField])]
     })
+    
+    //When formGroup valueChanges! -> check and apply validations!
+    this.fData.valueChanges.subscribe(res=>{
+      this.onValueChanges();
+    });
+  }
+
+  onValueChanges(){
+    //loop through formErrors field's (formControlName's)
+    for(const field of Object.keys(this.formErrors)){
+      //check if form is not undefined -> valid form
+      if(!this.fData){
+        return;
+      }
+        
+      //set message to ''
+      this.formErrors[field]='';
+      //get formControl instance from formControlName
+      const formControl = this.fData.get(field);
+        
+      //check conditions for validations 
+      if(formControl && ((formControl.touched || formControl.dirty) && formControl.errors)){
+        //loop through all errors applied on formControl
+        for(let key of Object.keys(formControl.errors)){
+          //skip check for required validation as this is not detected at 1st time in valueChanges
+          if(key !== 'required'){
+              //append validation message
+              this.formErrors[field] = this.formErrors[field] + this.validationMessages[field][key] + '<br/>';
+          }
+        }
+      }
+    }
   }
 
   get formControls(){

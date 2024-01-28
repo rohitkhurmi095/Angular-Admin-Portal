@@ -20,11 +20,12 @@
                                <div class="col-sm-7">
                                     <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid':(formControls['name'].touched || formControls['name'].dirty)  && formControls['name'].errors}">
                                     <div class="invalid-feedback" *ngIf="(formControls['name'].touched || formControls['name'].dirty)  && formControls['name'].errors">
-                                        <div *ngIf="formControls['name'].hasError('required')">Name is required.</div>
-                                        <div *ngIf="formControls['name'].hasError('minlength')">Name must be minimum of 2 characters</div>
+                                        <div *ngIf="formControls['name'].hasError('required')">{{validationMessages.name.required}}</div>
+                                        <!-- <div *ngIf="formControls['name'].hasError('minlength')">Name must be minimum of 2 characters</div>
                                         <div *ngIf="formControls['name'].hasError('maxlength')">Name cannot exceed 8 characters</div>
                                         <div *ngIf="formControls['name'].hasError('ValidCharField')">Name must be contains char and space only!</div>
-                                        <div *ngIf="formControls['name'].hasError('ValidNoWhiteSpaceField')">Only whitespace characters not allowed!</div>
+                                        <div *ngIf="formControls['name'].hasError('ValidNoWhiteSpaceField')">Only whitespace characters not allowed!</div> -->
+                                        <div [innerHtml]="formErrors['name']"></div>
                                     </div>
                                </div>
                             </div>
