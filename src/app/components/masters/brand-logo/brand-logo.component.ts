@@ -150,11 +150,11 @@ export class BrandLogoComponent {
     this._httpService.get(Global.BASE_API_URL+'BrandLogo/GetAll').subscribe(res=>{
       console.log('BrandLogo -> GetAll: ',res);
       if(res.isSuccess){
-        this.objRows = res.data.map(row => {
-          if (row.createdOn !== "07/12/2019") {
-            row.imagePath = row.imagePath.replace('/Images/Shop', '/Images');
+        this.objRows = res.data.map(x => {
+          if (x.createdOn !== "07/12/2019") {
+            x.imagePath = x.imagePath.replace('/Images/Shop', '/Images');
           }
-          return row;
+          return x;
         });
       }else{
         this._toastr.error(res.errors[0],this.componentName);
