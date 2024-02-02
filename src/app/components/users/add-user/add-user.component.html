@@ -1,1 +1,96 @@
-<p>add-user works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card tab2-card">
+                <div class="card-header">
+                    <h5>Add User</h5>
+                </div>
+                <div class="card-body tab2-card">
+                    <!-- _____________-->
+                    <!-- Add/Edit Form -->
+                    <!--______________-->
+                    <form [formGroup]="fData"  class="form-horizontal">
+                        <!-- firstName -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">*First Name</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" formControlName="firstName" [ngClass]="{'is-invalid':(formControls['firstName'].touched || formControls['firstName'].dirty) && formControls['firstName'].errors}">
+                                <div class="invalid-feedback" *ngIf="(formControls['firstName'].touched || formControls['firstName'].dirty) && formControls['firstName'].errors">
+                                    <div *ngIf="formControls['firstName'].hasError('required')">{{validationMessages.firstName.required}}</div>
+                                    <div [innerHTML]="formErrors['firstName']"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <!-- lastName -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">*Last Name</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" formControlName="lastName" [ngClass]="{'is-invalid':(formControls['lastName'].touched || formControls['lastName'].dirty) && formControls['lastName'].errors}">
+                                <div class="invalid-feedback" *ngIf="(formControls['lastName'].touched || formControls['lastName'].dirty) && formControls['lastName'].errors">
+                                    <div *ngIf="formControls['lastName'].hasError('required')">{{validationMessages.lastName.required}}</div>
+                                    <div [innerHTML]="formErrors['lastName']"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <!-- email -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">*Email</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" formControlName="email" [ngClass]="{'is-invalid':(formControls['email'].touched || formControls['email'].dirty) && formControls['email'].errors}">
+                                <div class="invalid-feedback" *ngIf="(formControls['email'].touched || formControls['email'].dirty) && formControls['email'].errors">
+                                    <div *ngIf="formControls['email'].hasError('required')">{{validationMessages.email.required}}</div>
+                                    <div [innerHTML]="formErrors['email']"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <!-- userType (Dropdown)-->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">*User Type</label>
+                            <div class="col-sm-7">
+                                <select class="form-select" formControlName="userTypeId" [ngClass]="{'is-invalid':(formControls['userTypeId'].touched || formControls['userTypeId'].dirty) && formControls['userTypeId'].errors}">
+                                    <option selected value="">----- Select User Type -----</option>
+                                    <option *ngFor="let userType of userTypes" [value]="userType.id">{{userType.name}}</option>
+                                </select>
+                                <div class="invalid-feedback" *ngIf="(formControls['userTypeId'].touched || formControls['userTypeId'].dirty) && formControls['userTypeId'].errors">
+                                    <div *ngIf="formControls['userTypeId'].hasError('required')">{{validationMessages.userTypeId.required}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <!-- password -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">*Password</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" formControlName="password" [ngClass]="{'is-invalid':(formControls['password'].touched || formControls['password'].dirty) && formControls['password'].errors}">
+                                <div class="invalid-feedback" *ngIf="(formControls['password'].touched || formControls['password'].dirty) && formControls['password'].errors">
+                                    <div *ngIf="formControls['password'].hasError('required')">{{validationMessages.password.required}}</div>
+                                    <div [innerHTML]="formErrors['password']"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <!-- confirmPassword -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">*Confirm Password</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" formControlName="confirmPassword" [ngClass]="{'is-invalid': (formControls['confirmPassword'].touched || formControls['confirmPassword'].dirty) && formControls['confirmPassword'].errors}">
+                                <div class="invalid-feedback" *ngIf="(formControls['confirmPassword'].touched || formControls['confirmPassword'].dirty) && formControls['confirmPassword'].errors">
+                                    <div *ngIf="formControls['confirmPassword'].hasError('required')">{{validationMessages.confirmPassword.required}}</div>
+                                    <div [innerHTML]="formErrors['confirmPassword']"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- buttons -->
+                        <div class="fa-pull-right" style="margin-top: 20px;">
+                            <button class="btn btn-primary" (click)="submit()" [disabled]="!fData.valid">{{buttonText}}</button>
+                            <button class="btn btn-secondary mx-2" (click)="cancel()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
