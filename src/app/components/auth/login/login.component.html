@@ -76,6 +76,16 @@
                                                             <div *ngIf="registerFormControls['email'].hasError('ValidEmailField')">Please enter a valid email!</div>
                                                         </div>
                                                     </div>
+                                                    <!-- userType (Dropdown)-->
+                                                    <div class="form-group">
+                                                        <select class="form-select" formControlName="userTypeId" [ngClass]="{'is-invalid':(registerFormControls['userTypeId'].touched || registerFormControls['userTypeId'].dirty) && registerFormControls['userTypeId'].errors}">
+                                                            <option selected value="">----- Select User Type -----</option>
+                                                            <option *ngFor="let userType of userTypes" [value]="userType.id">{{userType.name}}</option>
+                                                        </select>
+                                                        <div class="invalid-feedback" *ngIf="(registerFormControls['userTypeId'].touched || registerFormControls['userTypeId'].dirty) && registerFormControls['userTypeId'].errors">
+                                                            <div *ngIf="registerFormControls['userTypeId'].hasError('required')">Please Select User Type!</div>
+                                                        </div>
+                                                    </div>
                                                     <!-- Password  -->
                                                     <div class="form-group">
                                                         <input type="password" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{'is-invalid':(registerFormControls['password'].touched || registerFormControls['password'].dirty) && registerFormControls['password'].errors}">

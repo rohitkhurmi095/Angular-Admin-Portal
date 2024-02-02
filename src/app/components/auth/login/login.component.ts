@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   registerForm: FormGroup;
   registerFormOptions: AbstractControlOptions;
+  userTypes:any[];
 
   ngOnInit(){
     this.setLoginForm();
@@ -36,11 +37,14 @@ export class LoginComponent implements OnInit {
     });
   }
   setRegisterForm(){
+    //get user Types
+    this.getUserTypes();
+
     this.registerFormOptions = {
       validators: MustMatchFieldValidator('password','confirmPassword')
     }
     this.registerForm = this._fb.group({
-      userTypeId:[1], //for Admin UserType
+      userTypeId:['',[Validators.required]], //for UserType
       firstName:['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(15),AlphaNumericFieldValidator.ValidAlphaNumericField,NoWhiteSpaceFieldValidator.ValidNoWhiteSpaceField])],
       lastName:['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(15),AlphaNumericFieldValidator.ValidAlphaNumericField,NoWhiteSpaceFieldValidator.ValidNoWhiteSpaceField])],
       email:['',Validators.compose([Validators.required,EmailFieldValidator.ValidEmailField])],
@@ -65,7 +69,7 @@ export class LoginComponent implements OnInit {
   }
   resetRegisterForm(){
     this.registerForm.reset({
-      userTypeId:1,
+      userTypeId:'',
       firstName:'',
       lastName:'',
       email:'',
@@ -123,7 +127,20 @@ export class LoginComponent implements OnInit {
     })
     this.resetRegisterForm();
   }
-
+ 
+  //--------------
+  //Get UserTypes
+  //--------------
+  getUserTypes(){
+    this._httpService.get(Global.BASE_API_URL+'UserType/GetAll').subscribe(res=>{
+      console.log('Register -> GetUserTypes: ',res);
+      if(res.isSuccess){
+        this.userTypes = res.data;
+      }else{
+        this._toastr.error(res.errors[0],"Register");
+      }
+    })
+  }
 
   //Nav-TabChange
   onTabChange(event:any){

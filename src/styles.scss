@@ -7,3 +7,8 @@
 
 /* Theme */
 @import './assets/theme/theme.scss';
+
+/*Global Styles*/
+input,select{
+    border-radius: 25px !important;
+}
