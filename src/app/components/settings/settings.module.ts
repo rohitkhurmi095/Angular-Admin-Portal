@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SettingsRoutingModule } from './settings-routing.module';
 import { ProfileComponent } from './profile/profile.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ProfileComponent } from './profile/profile.component';
   ],
   imports: [
     CommonModule,
-    SettingsRoutingModule
+    SettingsRoutingModule,
+    NgbModule //for Tabset
   ]
 })
 export class SettingsModule { }

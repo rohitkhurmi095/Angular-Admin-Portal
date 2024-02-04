@@ -1,1 +1,86 @@
-<p>profile works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Left Side -->
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="profile-details text-center">
+                        <!-- User Details -->
+                        <img [src]="userImagePath" alt="user-image" class="img-fluid img-90 rounded-circle blur-up lazyloaded">
+                        <h5 class="f-w-600 mb-0">{{userDetails.firstName +' '+ userDetails.lastName}}</h5>
+                        <span>{{userDetails.email}}</span>
+                        <!-- Social Media Icons -->
+                        <div class="social">
+                            <div class="form-group btn-showcase">
+                                <button class="btn social-btn btn-fb d-inline-block">
+                                    <i class="fa fa-facebook"></i></button>
+                                <button class="btn social-btn btn-twitter d-inline-block"><i
+                                        class="fa fa-google"></i></button>
+                                <button class="btn social-btn btn-google d-inline-block mr-0"><i
+                                        class="fa fa-twitter"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right Side -->
+        <div class="col-xl-8">
+            <div class="card tab2-card">
+                <div class="card-body">
+                    <div class="tab-pane fade show active" id="top-profile" role="tabpanel" aria-labelledby="top-profile-tab">
+                        <!--Ngb TabSet -->
+                        <nav ngbNav #nav="ngbNav" class="nav-tabs" activeId="uploadTab" (navChange)="onTabChange($event)">
+                            <!----------->
+                            <!-- About -->
+                            <!----------->
+                            <ng-container ngbNavItem="profileTab">
+                                <a ngbNavLink>Profile</a>
+                                <ng-template ngbNavContent>
+                                    <div>
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Name:</td>
+                                                    <td>{{userDetails.firstName + ' '+ userDetails.lastName}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Email:</td>
+                                                    <td>{{userDetails.email}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>User Type:</td>
+                                                    <td>{{userDetails.userType}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Location:</td>
+                                                    <td>India</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </ng-template>
+                            </ng-container>
+                            <!------------------>
+                            <!-- Upload Image -->
+                            <!------------------>
+                            <ng-container ngbNavItem="uploadTab">
+                                <a ngbNavLink>Upload Image</a>
+                                <ng-template ngbNavContent>
+                                  <div class="profile-details text-center" style="margin:20px">
+                                      <img [src]="uploadPreviewImage" alt="user-image" class="img-fluid img-90 rounded-circle blur-up lazyloaded">
+                                      <input type="file" class="form-control" #profileImage accept="image/*" (change)="uploadProfileImage($event)">
+                                  </div>
+                                  <div style="margin-top: 20px;margin-left: 20px;">
+                                    <button class="btn btn-primary" (click)="update()">Update</button>
+                                </div>
+                                </ng-template>
+                            </ng-container>
+                        </nav>              
+                        <div [ngbNavOutlet]="nav" class="mt-2"></div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
