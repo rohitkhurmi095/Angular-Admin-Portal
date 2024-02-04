@@ -1,0 +1,17 @@
+=========
+CKEditor
+=========
+- RichText Editor
+
+npm install --save @ckeditor/ckeditor5-angular
+Editor Mode:
+npm install --save @ckeditor/ckeditor5-build-classic
+
+Component:
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+//CKEditor
+editor = ClassicEditor;
+content = '<p>Description</p>';
+
+Template:
+<ckeditor [editor]="editor" [data]="content"></ckeditor>

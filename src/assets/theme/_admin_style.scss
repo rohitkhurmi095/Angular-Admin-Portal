@@ -553,20 +553,21 @@ ng2-smart-table {
       border: 1px solid $round-border;
     }
     .btnGtr1 {
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
+      border-top-left-radius: 25px;
+      border-bottom-left-radius: 25px;
     }
     .btnLess1 {
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
+      border-top-right-radius: 25px;
+      border-bottom-right-radius: 25px;
     }
   }
   input {
     padding: 0.48rem 0.75rem;
     border: 1px solid $round-border;
     width: 80px;
-    border-left: none;
-    border-right: none;
+    // border-left: none;
+    // border-right: none;
+    border-radius: 0px !important;
   }
 }
 .add-product {

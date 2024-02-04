@@ -33,7 +33,7 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "allowedCommonJsDependencies": ["feather-icons","sweetalert2"]
+            "allowedCommonJsDependencies": ["feather-icons","sweetalert2","@ckeditor/ckeditor5-build-classic"]
           },
           "configurations": {
             "production": {

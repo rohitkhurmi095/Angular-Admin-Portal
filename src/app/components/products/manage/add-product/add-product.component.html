@@ -1,1 +1,230 @@
-<p>add-product works!</p>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>{{componentName}}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row product-adding">
+                        <div class="col-xl-5">
+                            <div class="add-product">
+                                <div class="row">
+                                    <!-- ZoomImagePreview-->
+                                    <!-- Set latest uploaded image as zoomImagePreview -->
+                                    <div class="col-xl-9 xl-50 col-sm-6 col-9">
+                                        <img alt="product-image" [src]="zoomImagePreview" class="img-fluid image_zoom_1">
+                                    </div>
+                                    <!-- Small Image Previews | Upload -->
+                                    <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                                        <ul class="file-upload-product">
+                                            <li *ngFor="let image of smallImagePreviews; let i=index">
+                                                <div class="box-input-file">
+                                                    <input class="upload" type="file" #image (change)="uploadImages($event,i)" />
+                                                    <img class="imgUpload" [src]="image.src"/>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-7">
+                            <div class="add-product-form">
+                                <!--===============-->
+                                <!-- Add/Edit form -->
+                                <!--===============-->
+                                <form [formGroup]="fData" class="form-horizontal">
+                                    <!-- Name -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">*Name</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': (fc['name'].touched || fc['name'].dirty) && fc['name'].errors}">
+                                            <div class="invalid-feedback" *ngIf="(fc['name'].touched || fc['name'].dirty) && fc['name'].errors">
+                                                <div *ngIf="fc['name'].hasError('required')">{{validationMessages.name.required}}</div>
+                                                <div [innerHTML]="formErrors['name']"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <!-- Title -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">*Title</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" formControlName="title" [ngClass]="{'is-invalid': (fc['title'].touched || fc['title'].dirty) && fc['title'].errors}">
+                                            <div class="invalid-feedback" *ngIf="(fc['title'].touched || fc['title'].dirty) && fc['title'].errors">
+                                                <div *ngIf="fc['title'].hasError('required')">{{validationMessages.title.required}}</div>
+                                                <div [innerHTML]="formErrors['title']"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <!-- Code -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">*Code</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" formControlName="code" [ngClass]="{'is-invalid': (fc['code'].touched || fc['code'].dirty) && fc['code'].errors}">
+                                            <div class="invalid-feedback" *ngIf="(fc['code'].touched || fc['code'].dirty) && fc['code'].errors">
+                                                <div *ngIf="fc['code'].hasError('required')">{{validationMessages.code.required}}</div>
+                                                <div [innerHTML]="formErrors['code']"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <!-- Price -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">*Price</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" formControlName="price"  [ngClass]="{'is-invalid': (fc['price'].touched || fc['price'].dirty) && fc['price'].errors}">
+                                            <div class="invalid-feedback" *ngIf="(fc['price'].touched || fc['price'].dirty) && fc['price'].errors">
+                                                <div *ngIf="fc['price'].hasError('required')">{{validationMessages.price.required}}</div>
+                                                <div [innerHTML]="formErrors['price']"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <!-- Sale Price -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">*Sale Price</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" formControlName="salePrice"  [ngClass]="{'is-invalid': (fc['salePrice'].touched || fc['salePrice'].dirty) && fc['salePrice'].errors}">
+                                            <div class="invalid-feedback" *ngIf="(fc['salePrice'].touched || fc['salePrice'].dirty) && fc['salePrice'].errors">
+                                                <div *ngIf="fc['salePrice'].hasError('required')">{{validationMessages.salePrice.required}}</div>
+                                                <div [innerHTML]="formErrors['salePrice']"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <!-- Discount -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">*Discount</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" formControlName="discount" [ngClass]="{'is-invalid': (fc['discount'].touched || fc['discount'].dirty) && fc['discount'].errors}">
+                                            <div class="invalid-feedback" *ngIf="(fc['discount'].touched || fc['discount'].dirty) && fc['discount'].errors">
+                                                <div *ngIf="fc['discount'].hasError('required')">{{validationMessages.discount.required}}</div>
+                                                <div [innerHTML]="formErrors['discount']"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <!-- Size (Dropdown) -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">*Size</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-select" formControlName="sizeId" [ngClass]="{'is-invalid': (fc['sizeId'].touched || fc['sizeId'].dirty) && fc['sizeId'].errors}">
+                                                <option value="">--Select--</option>
+                                                <option *ngFor="let size of sizes" [value]="size.id">{{size.name}}</option>
+                                            </select>
+                                            <div class="invalid-feedback" *ngIf="(fc['sizeId'].touched || fc['sizeId'].dirty) && fc['sizeId'].errors">
+                                                <div *ngIf="fc['sizeId'].hasError('required')">{{validationMessages.sizeId.required}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <!-- Category (Dropdown) -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">*Category</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-select" formControlName="categoryId" [ngClass]="{'is-invalid': (fc['categoryId'].touched || fc['categoryId'].dirty) && fc['categoryId'].errors}">
+                                                <option value="">--Select--</option>
+                                                <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+                                            </select>
+                                            <div class="invalid-feedback" *ngIf="(fc['categoryId'].touched || fc['categoryId'].dirty) && fc['categoryId'].errors">
+                                                <div *ngIf="fc['categoryId'].hasError('required')">{{validationMessages.categoryId.required}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <!-- Tag (Dropdown) -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">*Tag</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-select" formControlName="tagId" [ngClass]="{'is-invalid': (fc['tagId'].touched || fc['tagId'].dirty) && fc['tagId'].errors}">
+                                                <option value="">--Select--</option>
+                                                <option *ngFor="let tag of tags" [value]="tag.id">{{tag.name}}</option>
+                                            </select>
+                                            <div class="invalid-feedback" *ngIf="(fc['tagId'].touched || fc['tagId'].dirty) && fc['tagId'].errors">
+                                                <div *ngIf="fc['tagId'].hasError('required')">{{validationMessages.tagId.required}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <!-- Color (Dropdown) -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">*Color</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-select" formControlName="colorId" [ngClass]="{'is-invalid': (fc['colorId'].touched || fc['colorId'].dirty) && fc['colorId'].errors}">
+                                                <option value="">--Select--</option>
+                                                <option *ngFor="let color of colors" [value]="color.id">{{color.name}}</option>
+                                            </select>
+                                            <div class="invalid-feedback" *ngIf="(fc['colorId'].touched || fc['colorId'].dirty) && fc['colorId'].errors">
+                                                <div *ngIf="fc['colorId'].hasError('required')">{{validationMessages.colorId.required}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <!-- Total Price -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">*Total Products</label>
+                                        <div class="col-sm-8">
+                                            <div class="qty-box1">
+                                                <div class="input-group">
+                                                    <i class="fa fa-minus btnGtr1" (click)="counter('decrement')"></i>
+                                                    <input type="text" class="text-center" formControlName="quantity"/>
+                                                    <i class="fa fa-plus btnLess1" (click)="counter('increment')"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <!-- IsSale (checkbox) -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">*Is Sale</label>
+                                        <div class="col-sm-8">
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="form-checkbox" formControlName="isSale">
+                                                <i style="margin-left: 15px;">Select for mark this product for Sale</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <!-- IsNew (checkbox) -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">*Is New</label>
+                                        <div class="col-sm-8">
+                                            <input type="checkbox" class="form-checkbox" formControlName="isNew">
+                                            <i style="margin-left: 15px;">Select for mark this product for New</i>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <!--Short Details (Textarea)-->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">*Short Details</label>
+                                        <div class="col-sm-8">
+                                            <textarea type="text" class="form-control" rows="4" cols="12" formControlName="shortDetails"></textarea>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <!-- Description (RichTextEditor | CKEditor5)-->
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">*Description</label>
+                                        <div class="col-sm-8">
+                                            <ckeditor [editor]="editor" formControlName="description"></ckeditor>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <!-- buttons -->
+                                    <div class="fa-pull-right" style="margin-top: 20px;">
+                                        <button class="btn btn-primary" (click)="submit()" [disabled]="!fData.valid">{{buttonText}}</button>
+                                        <button class="btn btn-secondary mx-2" (click)="cancel()">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

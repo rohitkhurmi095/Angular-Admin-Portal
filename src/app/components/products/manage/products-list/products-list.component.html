@@ -1,1 +1,37 @@
-<p>products-list works!</p>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h5>{{componentName}}</h5>
+        </div>
+        <div class="card-body" style="margin-bottom: -30px! important;">
+            <a class="btn btn-secondary pull-right" routerLink="/products/manage/add-product">Add Product</a>
+        </div>
+        <div class="card-body">
+            <div class="category-table custom-datatable transcation-datatable userimage">
+                <div class="table-responsive">
+                    <!-- __________-->
+                    <!-- View List -->
+                    <!--___________-->
+                    <!-- Ngx-Datatable -->
+                    <ngx-datatable class="bootstrap" [rows]="objRows" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [columnMode]="'force'" [limit]="5">
+                        <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
+                        <ngx-datatable-column name="Title" prop="title"></ngx-datatable-column>
+                        <ngx-datatable-column name="Code" prop="code"></ngx-datatable-column>
+                        <ngx-datatable-column name="Price" prop="price"></ngx-datatable-column>
+                        <ngx-datatable-column name="Sale Price" prop="salePrice"></ngx-datatable-column>
+                        <ngx-datatable-column name="Quantity" prop="quantity"></ngx-datatable-column>
+                        <ngx-datatable-column name="Created Date" prop="createdOn"></ngx-datatable-column>
+                        <!-- Actions -->
+                        <ngx-datatable-column>
+                            <ng-template ngx-datatable-cell-template let-row="row">
+                                <button class="fa fa-edit" style="color:blue;" (click)="edit(row.id)"></button>
+                                <button class="fa fa-trash mx-2" style="color:red;" (click)="delete(row.id)"></button>
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                    <!---------------->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

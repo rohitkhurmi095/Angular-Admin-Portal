@@ -12,3 +12,8 @@
 input,select{
     border-radius: 25px !important;
 }
+
+//for CKEditor5 default height
+.ck-editor__editable_inline {
+    min-height: 120px;
+}

@@ -38,7 +38,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">*Email</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" formControlName="email" [ngClass]="{'is-invalid':(formControls['email'].touched || formControls['email'].dirty) && formControls['email'].errors}">
+                                <input type="email" class="form-control" formControlName="email" [ngClass]="{'is-invalid':(formControls['email'].touched || formControls['email'].dirty) && formControls['email'].errors}">
                                 <div class="invalid-feedback" *ngIf="(formControls['email'].touched || formControls['email'].dirty) && formControls['email'].errors">
                                     <div *ngIf="formControls['email'].hasError('required')">{{validationMessages.email.required}}</div>
                                     <div [innerHTML]="formErrors['email']"></div>
@@ -64,7 +64,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">*Password</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" formControlName="password" [ngClass]="{'is-invalid':(formControls['password'].touched || formControls['password'].dirty) && formControls['password'].errors}">
+                                <input type="password" class="form-control" formControlName="password" [ngClass]="{'is-invalid':(formControls['password'].touched || formControls['password'].dirty) && formControls['password'].errors}">
                                 <div class="invalid-feedback" *ngIf="(formControls['password'].touched || formControls['password'].dirty) && formControls['password'].errors">
                                     <div *ngIf="formControls['password'].hasError('required')">{{validationMessages.password.required}}</div>
                                     <div [innerHTML]="formErrors['password']"></div>
@@ -76,7 +76,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">*Confirm Password</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" formControlName="confirmPassword" [ngClass]="{'is-invalid': (formControls['confirmPassword'].touched || formControls['confirmPassword'].dirty) && formControls['confirmPassword'].errors}">
+                                <input type="password" class="form-control" formControlName="confirmPassword" [ngClass]="{'is-invalid': (formControls['confirmPassword'].touched || formControls['confirmPassword'].dirty) && formControls['confirmPassword'].errors}">
                                 <div class="invalid-feedback" *ngIf="(formControls['confirmPassword'].touched || formControls['confirmPassword'].dirty) && formControls['confirmPassword'].errors">
                                     <div *ngIf="formControls['confirmPassword'].hasError('required')">{{validationMessages.confirmPassword.required}}</div>
                                     <div [innerHTML]="formErrors['confirmPassword']"></div>
