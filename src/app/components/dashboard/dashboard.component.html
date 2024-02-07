@@ -1,1 +1,135 @@
-<p>dashboard works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <!--==========-->
+        <!-- Counters -->
+        <!--==========-->
+        <!-- 1.Orders Counter -->
+        <!-- 2.Shipping Amount Counter -->
+        <!-- 3.Cash On Delivery Counter-->
+        <!-- 4.Cancelled Counter -->
+        <div class="col-xl-3 col-md-6 xl-50" *ngFor="let counter of dashboardCounter">
+            <div class="card o-hidden widget-cards">
+                <div class="card-body" [class]="counter.bgClass">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                               <app-feather-icon [icon]="counter.icon" [class]="counter.fontClass"></app-feather-icon>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{counter.name}}</span>
+                            <h3 class="mb-0">
+                               ₹ <span class="counter" [countUp]="counter.count"></span>
+                                <small>This Year</small>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--===============-->
+        <!-- Latest Orders -->
+        <!--===============-->
+        <div class="col-xl-12 xl-100">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Latest Orders</h5> 
+                </div>
+                <div class="card-body">
+                    <!------------>
+                    <!-- ORDERS -->
+                    <!------------>
+                    <!-- PrimeNg datatable -->
+                    <p-table #orderTable [value]="orders"
+                        [paginator]="true" [rows]="8" [showCurrentPageReport]="true"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        selectionMode="multiple"
+                        [globalFilterFields]="['orderId', 'orderStatus', 'paymentDate','paymentMethod','paymentStatus','shippingAmount','subTotalAmount','totalAmount']"     
+                        [tableStyle]="{ 'min-width': '50rem', 'border': '1px solid #ddd','font-size':'14px'}">                       
+                        <ng-template pTemplate="caption">
+                            <div>
+                                <!-- Global Search -->
+                                <span class="p-input-icon-left ml-auto">
+                                    <i class="pi pi-search"></i>
+                                    <input pInputText type="text" (input)="orderTable.filterGlobal($any($event.target).value, 'contains')" placeholder="Search keyword" />
+                                </span>
+                                <button style="margin-left:20px;border-radius:25px !important" type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportData()" class="p-button-success p-button-sm">Export</button>
+                            </div>
+                        </ng-template>
+
+                        <!-- Header -->
+                        <ng-template pTemplate="header">
+                            <tr style="border: 1px solid #ddd;">
+                                <th pSortableColumn="orderId">Order Id <p-sortIcon field="orderId"></p-sortIcon></th>
+                                <th pSortableColumn="orderStatus">Order Status <p-sortIcon field="orderStatus"></p-sortIcon></th>
+                                <th pSortableColumn="paymentDate">Payment Date <p-sortIcon field="paymentDate"></p-sortIcon></th>
+                                <th pSortableColumn="paymentMethod">Payment Method <p-sortIcon field="paymentMethod"></p-sortIcon></th>
+                                <th pSortableColumn="paymentStatus">Payment Status <p-sortIcon field="paymentStatus"></p-sortIcon></th>
+                                <th pSortableColumn="subTotalAmount">SubTotal Amount <p-sortIcon field="subTotalAmount"></p-sortIcon></th>
+                                <th pSortableColumn="shippingAmount">Shipping Amount <p-sortIcon field="shippingAmount"></p-sortIcon></th>
+                                <th pSortableColumn="totalAmount">Total Amount <p-sortIcon field="totalAmount"></p-sortIcon></th>
+                            </tr>
+                            <!-- Filters -->
+                            <tr>
+                                <th>
+                                    <input pInputText type="text" (input)="orderTable.filter($any($event.target).value,'orderId','startsWith')" placeholder="Order Id" style="width:100%"/>
+                                </th>
+                                <th>
+                                    <input pInputText type="text" (input)="orderTable.filter($any($event.target).value,'orderStatus','contains')" placeholder="Order Status" style="width:100%"/>
+                                </th>
+                                <th>   
+                                    <input pInputText type="text" (input)="orderTable.filter($any($event.target).value,'paymentDate','startsWith')" placeholder="Payment Date" style="width:100%"/>
+                                </th>
+                                <th>
+                                    <input pInputText type="text" (input)="orderTable.filter($any($event.target).value,'paymentMethod','startsWith')" placeholder="Payment Method" style="width:100%"/>
+                                </th>
+                                <th>
+                                    <input pInputText type="text" (input)="orderTable.filter($any($event.target).value,'paymentStatus','contains')" placeholder="Payment Status" style="width:100%"/>
+                                </th>
+                                 <th>
+                                    <input pInputText type="text" (input)="orderTable.filter($any($event.target).value,'subTotalAmount','startsWith')" placeholder="SubTotal Amount" style="width:100%"/>
+                                </th>
+                                <th>
+                                    <input pInputText type="text" (input)="orderTable.filter($any($event.target).value,'shippingAmount','startsWith')" placeholder="Shipping Amount" style="width:100%"/>
+                                </th>
+                                <th>                  
+                                    <input pInputText type="text" (input)="orderTable.filter($any($event.target).value,'totalAmount','startsWith')" placeholder="Total Amount" style="width:100%"/>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <!-- Body -->
+                        <ng-template pTemplate="body" let-order>
+                            <tr style="border: 1px solid #ddd;">
+                                <td>{{ order.orderId }}</td>
+                                <td [innerHTML]="order.orderStatus"></td>
+                                <td>{{ order.paymentDate}}</td>                               
+                                <td [innerHTML]="order.paymentMethod"></td>
+                                <td [innerHTML]="order.paymentStatus"></td>                                                         
+                                <td>{{ order.subTotalAmount }}</td>
+                                <td>{{ order.shippingAmount }}</td>
+                                <td>{{ order.totalAmount }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <!------------->
+                </div>
+            </div>
+        </div>
+
+        <!--==============-->
+        <!-- Order Status -->
+        <!--==============-->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Order Status</h5>
+                </div>
+                <div class="card-body sell-graph">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+               

@@ -3,7 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { CountUpModule } from 'ngx-countup';
 
+//PrimeNg
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
@@ -11,7 +17,12 @@ import { DashboardComponent } from './dashboard.component';
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    SharedModule,   //for feather-icon
+    CountUpModule, //for ngx-countup
+    TableModule,   //primeNg Table   
+    ButtonModule,  //primeNg buttons
+    InputTextModule //primeNg searchIcon
   ]
 })
 export class DashboardModule { }
