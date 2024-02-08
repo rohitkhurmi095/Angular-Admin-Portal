@@ -1,1 +1,82 @@
-<p>transactions works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Transactions List</h5>
+                </div>
+                <div class="card-body">
+                    <!------------------>
+                    <!-- Transactions -->
+                    <!------------------>
+                    <!-- PrimeNg datatable -->
+                    <p-table #transactionTable [value]="transactions"
+                        [paginator]="true" [rows]="8" [showCurrentPageReport]="true"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        selectionMode="multiple"
+                        [tableStyle]="{ 'min-width': '50rem', 'border': '1px solid #ddd','font-size':'14px'}">                       
+                        <!-- Header -->
+                        <ng-template pTemplate="header">
+                            <tr style="border: 1px solid #ddd;">
+                                <th pSortableColumn="transactionsId">Transactions Id <p-sortIcon field="transactionsId"></p-sortIcon></th>
+                                <th pSortableColumn="orderId">Order Id <p-sortIcon field="orderId"></p-sortIcon></th>
+                                <th pSortableColumn="orderStatus">Order Status <p-sortIcon field="orderStatus"></p-sortIcon></th>
+                                <th pSortableColumn="paymentDate">Payment Date <p-sortIcon field="paymentDate"></p-sortIcon></th>
+                                <th pSortableColumn="paymentMethod">Payment Method <p-sortIcon field="paymentMethod"></p-sortIcon></th>
+                                <th pSortableColumn="paymentStatus">Payment Status <p-sortIcon field="paymentStatus"></p-sortIcon></th>
+                                <th pSortableColumn="subTotalAmount">SubTotal Amount <p-sortIcon field="subTotalAmount"></p-sortIcon></th>
+                                <th pSortableColumn="shippingAmount">Shipping Amount <p-sortIcon field="shippingAmount"></p-sortIcon></th>
+                                <th pSortableColumn="totalAmount">Total Amount <p-sortIcon field="totalAmount"></p-sortIcon></th>
+                            </tr>
+                            <!-- Filters -->
+                            <tr>
+                                <th>
+                                    <input pInputText type="text" (input)="transactionTable.filter($any($event.target).value,'transactionsId','startsWith')" placeholder="Transactions Id" style="width:100%"/>
+                                </th>
+                                <th>
+                                    <input pInputText type="text" (input)="transactionTable.filter($any($event.target).value,'orderId','startsWith')" placeholder="Order Id" style="width:100%"/>
+                                </th>
+                                <th>
+                                    <input pInputText type="text" (input)="transactionTable.filter($any($event.target).value,'orderStatus','contains')" placeholder="Order Status" style="width:100%"/>
+                                </th>
+                                <th>   
+                                    <input pInputText type="text" (input)="transactionTable.filter($any($event.target).value,'paymentDate','startsWith')" placeholder="Payment Date" style="width:100%"/>
+                                </th>
+                                <th>
+                                    <input pInputText type="text" (input)="transactionTable.filter($any($event.target).value,'paymentMethod','startsWith')" placeholder="Payment Method" style="width:100%"/>
+                                </th>
+                                <th>
+                                    <input pInputText type="text" (input)="transactionTable.filter($any($event.target).value,'paymentStatus','contains')" placeholder="Payment Status" style="width:100%"/>
+                                </th>
+                                 <th>
+                                    <input pInputText type="text" (input)="transactionTable.filter($any($event.target).value,'subTotalAmount','startsWith')" placeholder="SubTotal Amount" style="width:100%"/>
+                                </th>
+                                <th>
+                                    <input pInputText type="text" (input)="transactionTable.filter($any($event.target).value,'shippingAmount','startsWith')" placeholder="Shipping Amount" style="width:100%"/>
+                                </th>
+                                <th>                  
+                                    <input pInputText type="text" (input)="transactionTable.filter($any($event.target).value,'totalAmount','startsWith')" placeholder="Total Amount" style="width:100%"/>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <!-- Body -->
+                        <ng-template pTemplate="body" let-transaction>
+                            <tr style="border: 1px solid #ddd;">
+                                <td>{{ transaction.transactionId}}</td>
+                                <td>{{ transaction.orderId }}</td>
+                                <td [innerHTML]="transaction.orderStatus"></td>
+                                <td>{{ transaction.paymentDate}}</td>                               
+                                <td [innerHTML]="transaction.paymentMethod"></td>
+                                <td [innerHTML]="transaction.paymentStatus"></td>                                                         
+                                <td>{{ transaction.subTotalAmount }}</td>
+                                <td>{{ transaction.shippingAmount }}</td>
+                                <td>{{ transaction.totalAmount }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <!-------------->                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
