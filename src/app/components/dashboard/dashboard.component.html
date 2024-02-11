@@ -124,7 +124,13 @@
                 <div class="card-header">
                     <h5>Order Status</h5>
                 </div>
-                <div class="card-body sell-graph">
+                <div class="card-body">    
+                    <div>
+                        <!-- ng2-google-chart | columnChart -->
+                        <ng-template [ngIf]="orderStatusChart">
+                            <google-chart [data]="orderStatusChart"></google-chart>    
+                        </ng-template> 
+                    </div>      
                 </div>
             </div>
         </div>

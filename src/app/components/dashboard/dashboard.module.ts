@@ -11,6 +11,9 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 
+//Chart
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+
 @NgModule({
   declarations: [
     DashboardComponent
@@ -22,7 +25,8 @@ import { InputTextModule } from 'primeng/inputtext';
     CountUpModule, //for ngx-countup
     TableModule,   //primeNg Table   
     ButtonModule,  //primeNg buttons
-    InputTextModule //primeNg searchIcon
+    InputTextModule, //primeNg searchIcon
+    Ng2GoogleChartsModule
   ]
 })
 export class DashboardModule { }

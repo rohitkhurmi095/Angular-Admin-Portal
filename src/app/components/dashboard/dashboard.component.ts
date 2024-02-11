@@ -9,6 +9,10 @@ import { DashboardCounter } from './dashboard-counter';
 import * as XLSX from 'xlsx'; 
 import { Table } from 'primeng/table';
 
+//chart
+import {GoogleChartType} from 'ng2-google-charts';
+import { OrderStatusChartService } from 'src/app/shared/services/charts/order-status-chart.service';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -17,13 +21,18 @@ import { Table } from 'primeng/table';
 export class DashboardComponent {
 
   componentName:string = "Dashboard";
-  orders:any[];
+
+  //Orders
+  orders:any[];                 //api data
+  orderStatusData:any[];       //chart data
+  orderStatusChart: any;      //chart
   
-  constructor(private _httpService:HttpService,private _toastr:ToastrService){}
+  constructor(private _httpService:HttpService,private _toastr:ToastrService, private _orderStatusChartService: OrderStatusChartService){}
 
   ngOnInit(){
     this.getNetFigureForDashboard();
     this.getOrderStatus();
+    this.getChartOrderStatus();
   }
 
   //===================
@@ -117,4 +126,37 @@ export class DashboardComponent {
     return doc.body.textContent;
   }
 
+
+  //=====================
+  //OrderStatusChartApi
+  //=====================
+  getChartOrderStatus(){
+    this._httpService.get(Global.BASE_API_URL+'PaymentMaster/GetChartOrderStatus').subscribe(res=>{
+      console.log('Dashboard -> ChartApi_OrderStatus: ',res);
+      if(res.isSuccess){
+        this.orderStatusData = this._orderStatusChartService.getChartOrderStatus(res.data);
+
+        //----------------------------------
+        //Bind ng2-google-chart | ColumnChart
+        //----------------------------------
+        this.orderStatusChart = { 
+          chartType: GoogleChartType.ColumnChart, 
+          dataTable: this.orderStatusData,  
+          options: { 
+            //title: 'Order Status',
+            bars: "horizontal", 
+            vAxis: { format: "decimal" }, 
+            //legend: { position: 'none' }, 
+            height: 340,
+            width: '100%', 
+            colors: ["#a5a5a5","#81ba00","#ffbc58","#ff8084"], 
+            backgroundColor: 'transparent' 
+          }, 
+        };
+      }
+      else{
+        this._toastr.error(res.errors[0],this.componentName);
+      }
+    });
+  }
 }
